@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "CSharp\CSharp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyView", "MyView\MyView.csproj", "{AAE79461-8B60-46A2-8E2B-7B881192E519}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyController", "MyController\MyController\MyController.csproj", "{8090C2BE-CB0B-6850-EA87-EF952C677E1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AAE79461-8B60-46A2-8E2B-7B881192E519}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAE79461-8B60-46A2-8E2B-7B881192E519}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAE79461-8B60-46A2-8E2B-7B881192E519}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8090C2BE-CB0B-6850-EA87-EF952C677E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8090C2BE-CB0B-6850-EA87-EF952C677E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8090C2BE-CB0B-6850-EA87-EF952C677E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8090C2BE-CB0B-6850-EA87-EF952C677E1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

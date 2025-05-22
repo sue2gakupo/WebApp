@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MyView.Models.NightMarket>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "夜市資料後台管理";
 }
 
 <h1>Index</h1>
 
 <p>
-     <a class="btn btn-outline-secondary" asp-action="Create">新增資料</a>  @*asp- → Tag helper  *@
+    <a class="btn btn-outline-secondary" asp-action="Create">新增資料</a>  @*asp- → Tag helper  *@
 </p>
 
 @* <p>
@@ -18,7 +18,7 @@
     <thead>
         <tr>
             <th>
-               圖片
+                圖片
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -30,7 +30,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Address)
-				@* 地址 *@
+                @* 地址 *@
             </th>
             <th>
                 看地圖
@@ -39,31 +39,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-               <img src="/images/@(item.Id).jpg" width="150" />
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="/images/@(item.Id).jpg" width="150" />
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
                     <a href="https://www.google.com.tw/maps/search/@(item.Address)" target="_blank" class="btn btn-outline-danger">地圖</a>
-            </td>
-            <td>
-                @Html.ActionLink("編輯", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-outline-warning" }) 
-                <a class="btn btn-outline-info"asp-action="Details">詳細資料</a>
-                @* @Html.ActionLink("詳細資料", "Details", new { /* id=item.PrimaryKey */ }) |
+                </td>
+                <td>
+                    @Html.ActionLink("編輯", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-outline-warning" })
+                    <a class="btn btn-outline-info" asp-action="Details">詳細資料</a>
+                    @* @Html.ActionLink("詳細資料", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("刪除", "Delete", new { /* id=item.PrimaryKey */ }) *@
-                <a href="/Home/Delete"class="btn btn-outline-dark">刪除</a>
-            </td>
-        </tr>
-}
+                    <a href="/Home/Delete" class="btn btn-outline-dark">刪除</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

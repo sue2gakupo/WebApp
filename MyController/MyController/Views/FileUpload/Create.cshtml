@@ -1,0 +1,12 @@
+﻿
+@{ 
+	ViewData["Title"]="Create";
+}
+
+<h1>Create</h1>
+@* enctype="multipart/from-data"屬性是上傳檔案表單一定要有的屬性 *@
+
+<from method ="post"action="/FileUpload/Create"></from>
+
+
+<h3 class color="red ">@ViewData["ErrMessage"]@ViewData["Result"]</h3>
