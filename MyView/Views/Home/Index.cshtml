@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = "夜市資料後台管理";
+    Layout = "_LayoutManager";  @* 使用自訂的佈局 *@
 }
 
-<h1>Index</h1>
+<h1>ViewData["Title"]</h1>
 
 <p>
     <a class="btn btn-outline-secondary" asp-action="Create">新增資料</a>  @*asp- → Tag helper  *@
@@ -58,7 +59,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("編輯", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-outline-warning" })
-                    <a class="btn btn-outline-info" asp-action="Details">詳細資料</a>
+                    <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">詳細資料</a>
                     @* @Html.ActionLink("詳細資料", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("刪除", "Delete", new { /* id=item.PrimaryKey */ }) *@
                     <a href="/Home/Delete" class="btn btn-outline-dark">刪除</a>

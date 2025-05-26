@@ -1,0 +1,31 @@
+﻿@model MyView.Models.NightMarket
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>NightMarket</h4>
+    <hr />
+    <div class="row">
+        <div class=col-md-6>
+            <img src="/images/@(Model.Id).jpg" class="img-thumbnail" />
+        </div>
+
+        <div class="col-md-6">
+            <div class="fw-bold">@Model.Name</div>
+            <p class="text-dark">@Model.Address</p>
+            <p class="text-end">
+                <a href="https://www.google.com.tw/maps/search/@(Model.Address)" target="_blank" class="btn btn-outline-danger">地圖</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
