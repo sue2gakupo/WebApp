@@ -13,6 +13,11 @@
     <thead>
         <tr>
             <th>
+                @* 學號 *@  @* hard code *@
+                @Html.DisplayNameFor(model => model.fStuId)
+            </th>
+            <th>
+                @* 姓名 *@
                 @Html.DisplayNameFor(model => model.fName)
             </th>
             <th>
@@ -21,27 +26,31 @@
             <th>
                 @Html.DisplayNameFor(model => model.fScore)
             </th>
-            <th></th>
+            <th>資料管理</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.fName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fScore)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.fStuId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.fStuId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.fStuId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fStuId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fScore)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.fStuId" class="btn btn-outline-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.fStuId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.fStuId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

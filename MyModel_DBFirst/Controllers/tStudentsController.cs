@@ -11,6 +11,7 @@ namespace MyModel_DBFirst.Controllers
 {
     public class tStudentsController : Controller
     {
+        //2.2.2 將原先既有的程式碼(如下)註解掉
         //private readonly dbStudentsContext _context;
 
         //public tStudentsController(dbStudentsContext context)
@@ -18,10 +19,9 @@ namespace MyModel_DBFirst.Controllers
         //    _context = context;
         //}
 
-        dbStudentsContext _context=new dbStudentsContext(); //直接建立dbStudentsContext的物件
 
-
-
+        //2.2.1 撰寫建立DbContext物件的程式
+        dbStudentsContext _context = new dbStudentsContext(); //直接建立dbStudentsContext物件
 
         // GET: tStudents
         public async Task<IActionResult> Index()
@@ -58,14 +58,30 @@ namespace MyModel_DBFirst.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("fStuId,fName,fEmail,fScore")] tStudent tStudent)
+        public async Task<IActionResult> Create([Bind("fStuId,fName,fEmail,fScore")] tStudent tStudent)//async語法，這個方法是非同步的，可以在等待資料庫操作時不阻塞主線程，必須要有await搭配
         {
-            if (ModelState.IsValid)
+            //select * from tStudent
+            //where fStuId = '127377'
+
+            //Linq 
+            var result = await _context.tStudent.FindAsync(tStudent.fStuId);  
+
+            if(result!=null)  //表示已經有此學號存在資料庫
             {
-                _context.Add(tStudent);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["ErrorMessage"] = "學號已存在，請重新輸入！";  //將錯誤訊息傳遞到View
+                return View(tStudent);
             }
+
+          
+
+            if (ModelState.IsValid)  //模型驗證是否完全符合規則
+            {
+                _context.Add(tStudent);   //將資料加入到資料庫的tStudent表中
+                await _context.SaveChangesAsync();  //正式地寫入資料庫
+
+                return RedirectToAction(nameof(Index));  //回到Index頁面
+            }
+
             return View(tStudent);
         }
 
