@@ -1,7 +1,8 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using MyModel_DBFirst.Models;
+using System.Diagnostics;
 
 namespace MyModel_DBFirst.Controllers
 {
@@ -188,8 +189,42 @@ namespace MyModel_DBFirst.Controllers
 
 //4.5   建立同步執行的Delete Action
 //4.5.1 撰寫Delete Action程式碼
-//4.5.2 將Index的Delete改為Form，以Post方式送出
+//4.5.2 將Index View的Delete改為Form，以Post方式送出
+//4.5.3 將Delete Actione改成Post方式
 //4.5.3 執行Delete功能測試
 //※補充說明※
 //這種寫法用不到Delete View，因此可以把Delete.cshtml刪除
 //Delete的按鈕若使用超鏈結，使用者將可直接在url給參數就能刪除資料
+
+
+//範例情境：學生要多出科系資料，所以資料庫需要修改，建立一個科系資料表並與tStudent資料表關聯
+//5. 資料庫修改
+//※由於DB First是以反向工程利用資料庫寫成的程式碼，因此在資料庫有小幅變動時，則必須手動撰寫模型內容※
+
+//5.1   在tStudent資料表中增加一個欄位
+//5.1.1 在SSMS中執行下列DDL指令碼以修改tStudent資料表及，增加一個DeptID欄位
+//  alter table tStudent
+//	    add DeptID varchar(2) not null default '01'
+//  go
+//5.1.2 在tStudent Class中增加一個屬性 public string DeptID { get; set; }
+//5.1.3 視情況修改View
+//5.1.4 執行測試
+
+
+//5.2   在dbStudents資料庫中增加資料表
+//5.2.1 在SSMS中執行下列DDL指令碼以建立Department資料表及與tStudnet的關聯
+//////////////////////////////////////////////////////////
+//create table Department(
+//    DeptID varchar(2) primary key,
+//    DeptName nvarchar(30) not null
+//)
+//go
+
+//insert into Department values('01','資工系'),('02', '資管系'),('03', '工管系')
+//go
+
+//alter table tStudent
+//	add foreign key(DeptID) references Department(DeptID)
+//go
+//////////////////////////////////////////////////////////
+

@@ -27,7 +27,8 @@ public partial class dbStudentsContext : DbContext
 
 
     public virtual DbSet<tStudent> tStudent { get; set; }
-
+    //5.2.4在dbStudentsContext中加入Department的DbSet
+    public virtual DbSet<Department> Department { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<tStudent>(entity =>
