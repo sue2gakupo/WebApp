@@ -122,6 +122,8 @@ namespace MyModel_DBFirst.Controllers
 //    Compare:與其它欄位比較是否相等
 //    EmailAddress:是否是E-mail格式
 //    Range: 限制所填的範圍
+//3.4 在tStudentsController檔案的Post Create Action中撰寫檢查學號是否重複的程式碼
+//3.5 在Create View檔案中補上呈現學號重複的錯誤訊息
 
 
 
@@ -190,11 +192,12 @@ namespace MyModel_DBFirst.Controllers
 //4.5   建立同步執行的Delete Action
 //4.5.1 撰寫Delete Action程式碼
 //4.5.2 將Index View的Delete改為Form，以Post方式送出
-//4.5.3 將Delete Actione改成Post方式
-//4.5.3 執行Delete功能測試
+//4.5.3 將Delete Action改為Post方式
+//4.5.4 執行Delete功能測試
 //※補充說明※
 //這種寫法用不到Delete View，因此可以把Delete.cshtml刪除
 //Delete的按鈕若使用超鏈結，使用者將可直接在url給參數就能刪除資料
+
 
 
 //範例情境：學生要多出科系資料，所以資料庫需要修改，建立一個科系資料表並與tStudent資料表關聯
@@ -203,7 +206,7 @@ namespace MyModel_DBFirst.Controllers
 
 //5.1   在tStudent資料表中增加一個欄位
 //5.1.1 在SSMS中執行下列DDL指令碼以修改tStudent資料表及，增加一個DeptID欄位
-//  alter table tStudent
+//alter table tStudent
 //	    add DeptID varchar(2) not null default '01'
 //  go
 //5.1.2 在tStudent Class中增加一個屬性 public string DeptID { get; set; }
@@ -228,3 +231,74 @@ namespace MyModel_DBFirst.Controllers
 //go
 //////////////////////////////////////////////////////////
 
+//5.2.2 在Models資料夾中新增Department Class(Models資料夾上按右鍵→加入→類別)，內容如下
+//public class Department
+//{
+//    [Key]
+//    public string DeptID { get; set; }
+//    public string DeptName { get; set; } = null!
+//    public List<tStudent>? tStudents { get; set; }
+//}
+//5.2.3 修改tStudent Class以建立與Department的關聯，內容如下
+//[ForeignKey("Department")]
+//public string DeptID { get; set; } = null!
+//public virtual Department? Department { get; set; }
+
+
+//5.2.4 在dbStudentsContext中加入Department的DbSet
+
+
+//※補充說明※
+//※若資料庫的變動幅度較大，則建議重新執行Scaffold - DbContext指令重建整個模型※
+//※不過若以Scaffold - DbContext重新建立模型，會將的DbContext及各個Class皆變回初始的程式碼，之前自己撰寫的部份會全部消失※
+//※對於Controller及View來說，若不想重新Scaffold CRUD亦必須一個一個手動修改※
+
+
+//5.3   重新製作自動生成的tStudent資料表CRUD功能
+//5.3.1 將sControler的名稱改為tStudents2Controler
+//5.3.2 在Controllers資料夾上按右鍵→加入→控制器
+//5.3.3 選擇「使用EntityFramework執行檢視的MVC控制器」→按下「加入」鈕
+//5.3.4 在對話方塊中設定如下
+//      模型類別: tStudent(MyModel_DBFirst.Models)
+//      資料內容類別: dbStudentsContext(MyModel_DBFirst.Models)
+//      勾選 產生檢視
+//      勾選 參考指令碼程式庫
+//      勾選 使用版面配置頁
+//      控制器名稱使tStudents2Controller
+//      按下「新增」鈕
+//5.3.5 參考2.2.1修改建立DbContext物件的程式
+//5.3.6 測試
+
+
+//5.4   修改Index View有關Department的顯示
+
+
+//5.5   手動修改MyStudentsController及相關的View
+//5.5.1 修改 Index Action
+//5.5.2 修改 Index View
+//5.5.3 修改 Create Action
+//5.5.4 修改 Create View
+//5.5.5 修改 Edit Action
+//5.5.6 修改 Edit View
+
+
+//流程：要先新增科系資料表，然後再修改tStudent資料表，最後再修改Controller及View
+//5.6 製作自動生成的Department資料表的CRUD功能 
+//5.6.1 在Controllers資料夾上按右鍵→加入→控制器
+//5.6.2 選擇「使用EntityFramework執行檢視的MVC控制器」→按下「加入」鈕
+//5.6.3 在對話方塊中設定如下
+//      模型類別: Department(MyModel_DBFirst.Models)
+//      資料內容類別: dbStudentsContext(MyModel_DBFirst.Models)
+//      勾選 產生檢視
+//      勾選 參考指令碼程式庫
+//      勾選 使用版面配置頁
+//      控制器名稱使用預設即可(DepartmentsController)
+//      按下「新增」鈕
+//5.6.4 參考2 .2.1修改建立DbContext物件的程式
+//5.6.5 測試
+//5.6.6 編輯Department 模型
+//5.6.7 依需求修改或移除Department View及DepartmentsController Action
+//5.6.8 在DepartmentsController Create Action中加入檢查科系代碼是否重覆的程式
+
+
+//5.7   編輯Layout選單，加入「科系管理」及「學生資料管理」
