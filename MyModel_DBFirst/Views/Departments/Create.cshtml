@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>科系總覽</h1>
 
-<h4>Department</h4>
+<h4>新增科系</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,12 +16,20 @@
                 <label asp-for="DeptID" class="control-label"></label>
                 <input asp-for="DeptID" class="form-control" />
                 <span asp-validation-for="DeptID" class="text-danger"></span>
-                <span class="text-danger">@ViewData["ErrorMessage"]</span>
+                <span class="text-danger">@ViewData["DeptIDError"]</span>
+                <span id="deptid-duplicate" class="text-danger"></span>    @*前端即時性驗證重複ID *@
+                @* id="deptid-duplicate" 這個標籤只是給 JavaScript 用來「唯一定位」這個 <span>
+                    元素，方便程式動態顯示訊息。
+                    它和資料庫的唯一主鍵（如 DeptID）沒有直接關係，也不會參與資料查詢或資料驗證。
+                    這個 id 只是 HTML 元素在前端頁面上的唯一識別名稱，
+                    讓 JS 可以用 $('#deptid-duplicate') 快速找到並操作這個區塊。 *@
             </div>
             <div class="form-group">
                 <label asp-for="DeptName" class="control-label"></label>
                 <input asp-for="DeptName" class="form-control" />
                 <span asp-validation-for="DeptName" class="text-danger"></span>
+                @* <span class="text-danger">@ViewData["DeptNameError"]</span>
+                <span id="deptid-duplicate2" class="text-danger"></span> *@
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -36,4 +44,39 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    }
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $('#DeptID').on('blur', function () {
+            var deptID = $(this).val();
+            if (deptID) {
+                $.get('@Url.Action("CheckDeptID", "Departments")', { deptID: deptID }, function (isValid) {
+                    if (!isValid) {
+                        $('#deptid-duplicate').text('科系代碼已存在，請重新輸入！');
+                    } else {
+                        $('#deptid-duplicate').text('');
+                    }
+                });
+            }
+        });
+    });
+</script>
+@* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $('#DeptName').on('blur', function () {
+            var deptName = $(this).val();
+            if (deptName) {
+                $.get('@Url.Action("CheckDeptName", "Departments")', { deptName: deptName }, function (isValid) {
+                    if (!isValid) {
+                        $('#deptid-duplicate2').text('科系名稱已存在，請重新輸入！');
+                    } else {
+                        $('#deptid-duplicate2').text('');
+                    }
+                });
+            }
+        });
+    });
+</script> *@
